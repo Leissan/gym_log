@@ -15,7 +15,7 @@
 # gem 'pg'
 #
 default: &default
-  adapter: postgresql
+  adapter: sqlite3
   host: localhost
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
