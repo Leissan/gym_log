@@ -29,3 +29,38 @@ function Login({ onLogin }) {
       </form>
     );
   }
+
+  // staying logged in:
+  function App() {
+    const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      fetch("/me").then((response) => {
+        if (response.ok) {
+          response.json().then((user) => setUser(user));
+        }
+      });
+    }, []);
+  
+    if (user) {
+      return <h2>Welcome, {user.username}!</h2>;
+    } else {
+      return <Login onLogin={setUser} />;
+    }
+  }
+
+
+  //logging out:
+  function Navbar({ onLogout }) {
+    function handleLogout() {
+      fetch("/logout", {
+        method: "DELETE",
+      }).then(() => onLogout());
+    }
+  
+    return (
+      <header>
+        <button onClick={handleLogout}>Logout</button>
+      </header>
+    );
+  }
